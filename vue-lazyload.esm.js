@@ -1,5 +1,5 @@
 /*!
- * Vue-Lazyload.js v1.3.1
+ * Vue-Lazyload.js v1.3.2
  * (c) 2019 Awe <hilongjw@gmail.com>
  * Released under the MIT License.
  */
@@ -905,13 +905,13 @@ var ReactiveListener = function () {
     }
 
     /*
-     * destroy
+     * $destroy
      * @return
      */
 
   }, {
-    key: 'destroy',
-    value: function destroy() {
+    key: '$destroy',
+    value: function $destroy() {
       this.el = null;
       this.src = null;
       this.error = null;
@@ -951,7 +951,7 @@ var Lazy = function (Vue) {
           observerOptions = _ref.observerOptions;
       classCallCheck(this, Lazy);
 
-      this.version = '1.3.1';
+      this.version = '1.3.2';
       this.mode = modeType.event;
       this.ListenerQueue = [];
       this.TargetIndex = 0;
@@ -1159,7 +1159,7 @@ var Lazy = function (Vue) {
           this._removeListenerTarget(existItem.$parent);
           this._removeListenerTarget(window);
           remove(this.ListenerQueue, existItem);
-          existItem.destroy();
+          existItem.$destroy();
         }
       }
 
@@ -1346,7 +1346,7 @@ var Lazy = function (Vue) {
         });
         freeList.forEach(function (item) {
           remove(_this7.ListenerQueue, item);
-          item.destroy();
+          item.$destroy();
         });
       }
       /**
@@ -1515,6 +1515,9 @@ var LazyComponent = (function (lazy) {
         this.show = true;
         this.state.loaded = true;
         this.$emit('show', this);
+      },
+      destroy: function destroy() {
+        return this.$destroy;
       }
     }
   };
